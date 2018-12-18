@@ -12,4 +12,4 @@ Possible bug in handling profiles info in Spring 5.1
 |!a & b|ab|notAandBShouldNotAcceptWhenABActive|false|false|
 |b & !a|ab|bAndNotAShouldNotAcceptWhenABActive|false|false|
 
-As shown in the table above, test **notAandBShouldNotAcceptWhenAActive** should not accept the bean, but it does, and just different order of operations in @Profile is enoug to fil the case
+As shown in the table above, test **notAandBShouldNotAcceptWhenAActive** should not accept the bean, but it does, and just different order of operations in @Profile is enough to behave accordingly. Tests were performed on JDK8
