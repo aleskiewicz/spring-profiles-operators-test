@@ -38,6 +38,18 @@ public class ProfilesTest {
     }
 
     @Test
+    public void notAandBShouldNotAcceptWhenAActive() throws Exception {
+        // given
+        Profiles notAAndB = Profiles.of("!a & b");
+        AbstractEnvironment environment = new MockEnvironment();
+        environment.setActiveProfiles("a");
+        // when
+        boolean acceptsProfiles = environment.acceptsProfiles(notAAndB);
+        // then
+        assertThat(acceptsProfiles).isFalse();
+    }
+
+    @Test
     public void bAndNotAShouldNotAcceptWhenAActive() throws Exception {
         // given
         Profiles bAndNotA = Profiles.of("b & !a");
@@ -49,12 +61,14 @@ public class ProfilesTest {
         assertThat(acceptsProfiles).isFalse();
     }
 
+
+
     @Test
-    public void notAandBShouldNotAcceptWhenAActive() throws Exception {
+    public void notAandBShouldNotAcceptWhenABActive() throws Exception {
         // given
         Profiles notAAndB = Profiles.of("!a & b");
         AbstractEnvironment environment = new MockEnvironment();
-        environment.setActiveProfiles("a");
+        environment.setActiveProfiles("a", "b");
         // when
         boolean acceptsProfiles = environment.acceptsProfiles(notAAndB);
         // then
@@ -69,18 +83,6 @@ public class ProfilesTest {
         environment.setActiveProfiles("a", "b");
         // when
         boolean acceptsProfiles = environment.acceptsProfiles(bAndNotA);
-        // then
-        assertThat(acceptsProfiles).isFalse();
-    }
-
-    @Test
-    public void notAandBShouldNotAcceptWhenABActive() throws Exception {
-        // given
-        Profiles notAAndB = Profiles.of("!a & b");
-        AbstractEnvironment environment = new MockEnvironment();
-        environment.setActiveProfiles("a", "b");
-        // when
-        boolean acceptsProfiles = environment.acceptsProfiles(notAAndB);
         // then
         assertThat(acceptsProfiles).isFalse();
     }
